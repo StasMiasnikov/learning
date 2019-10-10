@@ -1,7 +1,9 @@
 task add(type: Exec) {
     workingDir '.'
     outputs.upToDateWhen { false }
+    commandLine 'cmd', '/c', 'git config user.name "Stas Miasnikov"'
     commandLine 'cmd', '/c', 'git add .'
+
 }
 task commit(type: Exec) {
     workingDir '.'
