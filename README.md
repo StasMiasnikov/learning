@@ -9,7 +9,7 @@ Every step should be avaluated against
 ### Agenda 
 
 1. [SpringBoot+ Angular]( https://www.javaguides.net/2019/06/spring-boot-angular-7-crud-example-tutorial.html )
-1.1 Testing for mobile
+1.1 [Testing for mobile](https://medium.com/@briananderson2209/best-automation-testing-tools-for-2018-top-10-reviews-8a4a19f664d2)
 2. [AWS DevOps engineer]( https://www.udemy.com/share/101Btg/ )
 3. [Data Mining]()
 4. [DevSecOps](https://github.com/hysnsec/DevSecOps-Studio)
