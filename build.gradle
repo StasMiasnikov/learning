@@ -1,0 +1,22 @@
+task push(type: Exec) {
+    workingDir '.'
+    outputs.upToDateWhen { false }
+    commandLine 'cmd', '/c', "git push --all"
+}
+
+task commit(type: Exec) {
+    workingDir '.'
+    outputs.upToDateWhen { false }
+    commandLine 'cmd', '/c', "git commit -m 'Automatic commit'"
+}
+
+task add(type: Exec) {
+    workingDir '.'
+    outputs.upToDateWhen { false }
+    commandLine 'cmd', '/c', 'git add .'
+}
+task quick() {
+    dependsOn 'add'
+    dependsOn 'commit'
+    dependsOn 'push'
+}
