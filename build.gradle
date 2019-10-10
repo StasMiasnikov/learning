@@ -19,5 +19,4 @@ task quick() {
     dependsOn 'add'
     dependsOn 'commit'
     dependsOn 'push'
-    dependsOn 'push'
 }
