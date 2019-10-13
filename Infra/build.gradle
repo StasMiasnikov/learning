@@ -1,24 +1,26 @@
+def terraformWorkDir = 'src/config/terraform'
+
 task tfInit(type: Exec) {
-    workingDir '.'
+    workingDir terraformWorkDir
     outputs.upToDateWhen { false }
     commandLine 'cmd', '/c', 'terraform init'
 
 }
 task tfPlan(type: Exec) {
-    workingDir '.'
+    workingDir terraformWorkDir
     outputs.upToDateWhen { false }
     commandLine 'cmd', '/c', "terraform plan"
 }
 task tfApply(type: Exec) {
-    workingDir '.'
+    workingDir terraformWorkDir
     outputs.upToDateWhen { false }
     commandLine 'cmd', '/c', "terraform apply --auto-approve"
 }
 
-task quick() {
+task call() {
     dependsOn 'tfInit'
     dependsOn 'tfPlan'
     dependsOn 'tfApply'
 }
 
-defaultTasks quick
+defaultTasks 'call'
