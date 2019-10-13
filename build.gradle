@@ -1,12 +1,20 @@
 def terraformWorkDir = 'Infra/src/config/terraform'
-println "terraformWorkDir => $terraformWorkDir"
+
+
 task tfInit(type: Exec) {
     workingDir terraformWorkDir
     outputs.upToDateWhen { false }
     commandLine 'cmd', '/c', 'terraform init'
 }
-task tfPlan(type: Exec) {
+
+task tfDestroy(type: Exec) {
     dependsOn 'tfInit'
+    workingDir terraformWorkDir
+    outputs.upToDateWhen { false }
+    commandLine 'cmd', '/c', "terraform destroy --auto-approve"
+}
+task tfPlan(type: Exec) {
+    dependsOn 'tfDestroy'
     workingDir terraformWorkDir
     outputs.upToDateWhen { false }
     commandLine 'cmd', '/c', "terraform plan"
