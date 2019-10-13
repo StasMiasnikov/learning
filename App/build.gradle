@@ -1,0 +1,13 @@
+task buildUI(type: Exec) {
+    workingDir 'client'
+    outputs.upToDateWhen { false }
+    commandLine 'cmd', '/c', 'echo " buildUI IMPLEMENT ME"'
+}
+
+task buildServer(type: Exec) {
+    workingDir 'server'
+    outputs.upToDateWhen { false }
+    commandLine 'cmd', '/c', 'mvn clean package'
+}
+
+defaultTasks 'buildUI', 'buildServer'
