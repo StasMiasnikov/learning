@@ -1,5 +1,5 @@
 # Basic markdown [syntax](https://help.github.com/en/articles/basic-writing-and-formatting-syntax#links)
-# learning
+# [Learning URL](https://app.pluralsight.com)
 this repo is used for personal learning 
 git diff --cached --name-only
 #
