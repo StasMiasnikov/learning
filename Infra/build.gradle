@@ -1,0 +1,24 @@
+task tfInit(type: Exec) {
+    workingDir '.'
+    outputs.upToDateWhen { false }
+    commandLine 'cmd', '/c', 'terraform init'
+
+}
+task tfPlan(type: Exec) {
+    workingDir '.'
+    outputs.upToDateWhen { false }
+    commandLine 'cmd', '/c', "terraform plan"
+}
+task tfApply(type: Exec) {
+    workingDir '.'
+    outputs.upToDateWhen { false }
+    commandLine 'cmd', '/c', "terraform apply --auto-approve"
+}
+
+task quick() {
+    dependsOn 'tfInit'
+    dependsOn 'tfPlan'
+    dependsOn 'tfApply'
+}
+
+defaultTasks quick
