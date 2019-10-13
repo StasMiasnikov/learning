@@ -17,5 +17,8 @@ gradle-app.setting
 /.project
 
 #AWS
-creds 
+creds.*
+.terraform
+terraform.tfstate
+terraform.tfstate.backup
 
