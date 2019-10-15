@@ -26,6 +26,23 @@ task tfApply(type: Exec) {
     commandLine 'cmd', '/c', "terraform apply --auto-approve"
 }
 
-task call() {
-    dependsOn 'tfApply'
+
+task buildUI(type: Exec) {
+    workingDir 'App/client'
+    outputs.upToDateWhen { false }
+    commandLine 'cmd', '/c', 'echo " buildUI IMPLEMENT ME"'
 }
+
+task buildServer(type: Exec) {
+    workingDir 'App/server'
+    outputs.upToDateWhen { false }
+    commandLine 'cmd', '/c', 'mvn clean package'
+}
+
+
+task execute() {
+    dependsOn 'tfApply'
+    dependsOn 'buildUI'
+    dependsOn 'buildServer'
+}
+defaultTasks 'execute'
