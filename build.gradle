@@ -40,9 +40,17 @@ task buildServer(type: Exec) {
 }
 
 
+task buildClient(type: Exec) {
+    workingDir 'App/client'
+    outputs.upToDateWhen { false }
+    commandLine 'cmd', '/c', 'npm install'
+}
+
+
 task execute() {
     dependsOn 'tfApply'
     dependsOn 'buildUI'
+    dependsOn 'buildServer'
     dependsOn 'buildServer'
 }
 defaultTasks 'execute'
