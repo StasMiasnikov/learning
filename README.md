@@ -5,6 +5,12 @@ git diff --cached --name-only
 #
 Every step should be avaluated against 
 [The 5 Pillars of the AWS Well-Architected Framework](https://aws.amazon.com/blogs/apn/the-5-pillars-of-the-aws-well-architected-framework/).
+1. Operational Excellence
+2. Security
+3. Reliability
+4. Performance Efficiency
+5. Cost Optimization
+
 
 ### Agenda 
 
