@@ -17,11 +17,11 @@ gradle-app.setting
 # gradle/wrapper/gradle-wrapper.properties
 /.project
 
-/server/target/
+App/server/target/
 target/
 !.mvn/wrapper/maven-wrapper.jar
-dist/
-node_modules/
+App/client/dist/
+App/client/node_modules/
 
 ### STS ###
 .apt_generated
