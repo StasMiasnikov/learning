@@ -3,6 +3,7 @@
 gradle
 /build/
 
+dist/
 # Ignore Gradle GUI config
 gradle-app.setting
 
