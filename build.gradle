@@ -12,9 +12,15 @@ task tfInit(type: Exec) {
     outputs.upToDateWhen { false }
     commandLine 'cmd', '/c', 'terraform init'
 }
+task tfRefresh(type: Exec) {
+	dependsOn 'tfInit'
+    workingDir terraformWorkDir
+    outputs.upToDateWhen { false }
+    commandLine 'cmd', '/c', 'terraform refresh'
+}
 
 task tfDestroy(type: Exec) {
-    dependsOn 'tfInit'
+    dependsOn 'tfRefresh'
     workingDir terraformWorkDir
     outputs.upToDateWhen { false }
     commandLine 'cmd', '/c', "terraform destroy --auto-approve"
