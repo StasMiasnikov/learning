@@ -6,10 +6,10 @@ provider "aws" {
 
 resource "aws_s3_bucket" "b" {
   bucket = "stas-learning-test-bucket"
-  acl    = "private"
+  acl = "private"
 
   tags = {
-    Name        = "My bucket"
+    Name = "My bucket"
     Environment = "Dev"
   }
 }

@@ -1,4 +1,6 @@
-
+# MANUAL PART
+backend.tf
+### AUTOMATIC PART
 # Created by https://www.gitignore.io/api/terraform
 # Edit at https://www.gitignore.io/?templates=terraform
 
