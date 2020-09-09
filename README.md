@@ -21,3 +21,6 @@ Every step should be avaluated against
 3. [Data Mining]()
 4. [DevSecOps](https://github.com/hysnsec/DevSecOps-Studio)
 5. [AWS Solutions architect](https://aws.amazon.com/certification/certified-solutions-architect-professional/)
+
+
+#choco install gradle nodejs python2 -y
