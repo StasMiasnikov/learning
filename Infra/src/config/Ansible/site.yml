@@ -1,0 +1,11 @@
+---
+- hosts: aws
+  become: true
+  roles:
+   - aws_linux_docker
+
+# - hosts: localhost
+#   become: true
+#   roles:
+#    - install_docker
+  

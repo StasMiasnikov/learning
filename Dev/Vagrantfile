@@ -1,0 +1,33 @@
+$BASIC = <<-SCRIPT
+sudo apt-get update -y
+sudo apt-get install -y git net-tools smbclient samba cifs-utils ansible
+mkdir -p  /home/vagrant/shared
+sudo mount -t cifs -o user=stas,password=stasstas100 //172.28.176.1/stas /home/vagrant/shared || dmesg
+sudo chmod -R  777 /home/vagrant/shared
+git config --global user.name "Stas"
+SCRIPT
+
+$ANSIBLE_PROVISION = <<-SCRIPT
+
+cd /home/vagrant/shared/GIt/learning/Infra/src/config/Ansible
+ansible-playbook site.yaml
+SCRIPT
+
+
+
+Vagrant.configure("2") do |config|
+    config.vm.box = "roboxes/ubuntu2004"
+    # config.vm.synced_folder "C:/Users/opan1/Desktop/STAS", "/home/vagrant/shared/", type: "smb"
+    config.vm.provider :hyperv do |hyperv|
+        hyperv.vmname = "ubuntu_dev"
+        hyperv.linked_clone=true
+        hyperv.cpus=6
+        hyperv.memory=1024
+        hyperv.vm_integration_services = {
+            guest_service_interface: true,
+            CustomVMSRV: true
+          }
+      end
+      config.vm.provision "Basic", type: 'shell',  inline: $BASIC
+      config.vm.provision "ANSIBLE_PROVISION", type: "shell", inline: $ANSIBLE_PROVISION
+  end
