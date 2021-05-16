@@ -383,3 +383,6 @@ gradle-app.setting
 **/build/
 
 # End of https://www.gitignore.io/api/intellij,gradle,node,angular,java,maven,gradle
+.project
+.settings/org.eclipse.buildship.core.prefs
+.vscode/settings.json
