@@ -1,0 +1,30 @@
+---
+- name: Copy repo file descriptor
+  ansible.builtin.copy:
+    src: kubernetes.repo
+    dest: /etc/yum.repos.d/kubernetes.repo
+    mode: '0644'
+
+- name: Install a k8s packages
+  yum:
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - kubelet  
+    - kubeadm
+    - kubectl
+
+- name: Enable kubelet service
+  ansible.builtin.systemd:
+    name: kubelet
+    state: started
+    enabled: yes
+
+- name: System scripts
+  become: yes
+  shell: "{{ item }}"
+  with_items:
+    # - "setenforce 0"
+    # - "sed -i ‘s/^SELINUX=enforcing$/SELINUX=permissive/’ /etc/selinux/config"
+    - "sed -i '/swap/d' /etc/fstab"
+    - "swapoff -a"
