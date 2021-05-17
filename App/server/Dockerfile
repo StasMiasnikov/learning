@@ -1,5 +1,5 @@
-FROM openjdk:11.0.7-jdk as compilation
-RUN apt-get update && apt-get install -y unzip
+FROM openjdk:11-slim-buster as compilation
+RUN apt-get update && apt-get install -y unzip curl
 WORKDIR /gradle
 RUN curl -L https://services.gradle.org/distributions/gradle-7.0.2-bin.zip -o gradle-7.0.2-bin.zip
 RUN unzip gradle-7.0.2-bin.zip
@@ -13,6 +13,6 @@ RUN find . -name '*.jar'
 RUN gradle --no-daemon bootJar
 RUN find / -name '*.jar'
 
-FROM openjdk:11.0.7-jdk 
+FROM openjdk:11-slim-buster
 COPY --from=compilation  /gradle/build/libs/gradle-0.0.1-SNAPSHOT.jar app.jar
 ENTRYPOINT ["java","-jar","/app.jar"]
