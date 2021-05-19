@@ -5,68 +5,68 @@
 #    - aws_linux_docker
 
 
-- hosts: worker-1,worker-2,control
-  gather_facts: no
-  become: true
-  roles:
-   - k8s
-
-
-# - hosts: aws
+# - hosts: worker-1,worker-2,control
 #   gather_facts: no
-#   tasks:
-#     # - name: "Run shell script"
-#     #   become: true
-#     #   shell: "sudo amazon-linux-extras install -y java-openjdk11"
-#     #   # shell: "hostnamectl set-hostname {{ inventory_hostname }}"
-#     - name: "add to etc/hosts"
-#       become: yes
-#       ansible.builtin.lineinfile:
-#         path: /etc/hosts
-#         line: "{{ hostvars[item].ansible_host }} {{hostvars[item].inventory_hostname}}"
-#         state: present
-#       with_items: "{{ groups['aws'] }}" 
+#   become: true
+#   roles:
+#    - k8s
+
+
+- hosts: aws
+  gather_facts: no
+  tasks:
+    # - name: "Run shell script"
+    #   become: true
+    #   shell: "sudo amazon-linux-extras install -y java-openjdk11"
+    #   # shell: "hostnamectl set-hostname {{ inventory_hostname }}"
+    - name: "add to etc/hosts"
+      become: yes
+      ansible.builtin.lineinfile:
+        path: /etc/hosts
+        line: "{{ hostvars[item].ansible_host }} {{hostvars[item].inventory_hostname}}"
+        state: present
+      with_items: "{{ groups['aws'] }}" 
     
-#     - name: Touch
-#       file:
-#         path: "/home/{{ ansible_user }}/.ssh/known_hosts"
-#         state: touch
+    - name: Touch
+      file:
+        path: "/home/{{ ansible_user }}/.ssh/known_hosts"
+        state: touch
       
-#     - name: "Host scan hostname"
-#       become: yes
-#       shell: bash -ilc "ssh-keyscan -trsa {{ hostvars[item].ansible_host }} >>  /home/{{ ansible_user }}/.ssh/known_hosts "
-#       with_items: "{{ groups['aws'] }}"
+    - name: "Host scan hostname"
+      become: yes
+      shell: bash -ilc "ssh-keyscan -trsa {{ hostvars[item].ansible_host }} >>  /home/{{ ansible_user }}/.ssh/known_hosts "
+      with_items: "{{ groups['aws'] }}"
 
 
-#     - name: "Host scan"
-#       become: yes
-#       shell: bash -ilc "ssh-keyscan -trsa {{ hostvars[item].inventory_hostname }} >>  /home/{{ ansible_user }}/.ssh/known_hosts"
-#       with_items: "{{ groups['aws'] }}"
+    - name: "Host scan"
+      become: yes
+      shell: bash -ilc "ssh-keyscan -trsa {{ hostvars[item].inventory_hostname }} >>  /home/{{ ansible_user }}/.ssh/known_hosts"
+      with_items: "{{ groups['aws'] }}"
   
-# - hosts: localhost
-#   tasks: 
-#     - name: "add to etc/hosts"
-#       become: yes
-#       ansible.builtin.lineinfile:
-#         path: /etc/hosts
-#         regexp: "^(.*) {{hostvars[item].inventory_hostname}}$"
-#         line: "{{ hostvars[item].ansible_host }} {{hostvars[item].inventory_hostname}}"
-#         backrefs: yes
-#       with_items: "{{ groups['aws'] }}"
+- hosts: localhost
+  tasks: 
+    - name: "add to etc/hosts"
+      become: yes
+      ansible.builtin.lineinfile:
+        path: /etc/hosts
+        regexp: "^(.*) {{hostvars[item].inventory_hostname}}$"
+        line: "{{ hostvars[item].ansible_host }} {{hostvars[item].inventory_hostname}}"
+        backrefs: yes
+      with_items: "{{ groups['aws'] }}"
 
 
-#     - name: Touch
-#       file:
-#         path: "/home/{{ ansible_user }}/.ssh/known_hosts"
-#         state: touch
+    - name: Touch
+      file:
+        path: "/home/{{ ansible_user }}/.ssh/known_hosts"
+        state: touch
       
-#     - name: "Host scan"
-#       become: yes
-#       shell: bash -ilc "ssh-keyscan -trsa {{ hostvars[item].ansible_host }} >>  /home/{{ ansible_user }}/.ssh/known_hosts "
-#       with_items: "{{ groups['aws'] }}"
+    - name: "Host scan"
+      become: yes
+      shell: bash -ilc "ssh-keyscan -trsa {{ hostvars[item].ansible_host }} >>  /home/{{ ansible_user }}/.ssh/known_hosts "
+      with_items: "{{ groups['aws'] }}"
 
 
-#     - name: "Host scan"
-#       become: yes
-#       shell: bash -ilc "ssh-keyscan -trsa {{ hostvars[item].inventory_hostname }} >>  /home/{{ ansible_user }}/.ssh/known_hosts"
-#       with_items: "{{ groups['aws'] }}"
+    - name: "Host scan"
+      become: yes
+      shell: bash -ilc "ssh-keyscan -trsa {{ hostvars[item].inventory_hostname }} >>  /home/{{ ansible_user }}/.ssh/known_hosts"
+      with_items: "{{ groups['aws'] }}"
