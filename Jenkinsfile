@@ -1,4 +1,4 @@
-node("master"){
+node("back_office"){
 stage("Checkout"){
 checkout scm
 
