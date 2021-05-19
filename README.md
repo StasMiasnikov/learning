@@ -24,3 +24,7 @@ Every step should be avaluated against
 
 
 #choco install gradle nodejs python2 -y
+
+
+1 - Create VPC
+2 - Create Subnet
