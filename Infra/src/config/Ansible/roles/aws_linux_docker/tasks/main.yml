@@ -35,7 +35,7 @@
     state: present
     create: yes
     path: /etc/docker/daemon.json
-    line: "'insecure-registries' : ['{{ hostvars['back_office'].ansible_host }}:5000']"
+    line: "{'insecure-registries' : ['{{ hostvars['back_office'].ansible_host }}:5000']}"
 #     //{
 #   "insecure-registries" : ["myregistrydomain.com:5000"]
 # # }

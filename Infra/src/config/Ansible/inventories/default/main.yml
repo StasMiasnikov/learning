@@ -23,6 +23,7 @@ aws:
         ansible_host: 18.217.55.123
         public_hostname: ec2-18-217-55-123.us-east-2.compute.amazonaws.com
     back_office:
+        ansible_ssh_private_key_file: "/home/vagrant/.ssh/1/back_office.pem"
         ansible_host: 13.58.129.253
         public_hostname: ec2-13-58-129-253.us-east-2.compute.amazonaws.com
 

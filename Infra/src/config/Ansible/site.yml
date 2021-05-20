@@ -1,5 +1,5 @@
 ---
-- hosts: aws
+- hosts: back_office,control
   become: true
   roles:
    - aws_linux_docker
