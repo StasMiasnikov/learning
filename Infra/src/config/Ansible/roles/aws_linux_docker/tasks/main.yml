@@ -30,15 +30,20 @@
     group: "docker"
     append: yes
 
-- name: "Add temp insecure registry"
-  lineinfile:
-    state: present
-    create: yes
-    path: /etc/docker/daemon.json
-    line: "{'insecure-registries' : ['{{ hostvars['back_office'].ansible_host }}:5000']}"
-#     //{
-#   "insecure-registries" : ["myregistrydomain.com:5000"]
-# # }
+- name: "Template config" 
+  ansible.builtin.template:
+      src: daemon.json
+      dest: /etc/docker/daemon.json
+
+# - name: "Add temp insecure registry"
+#   lineinfile:
+#     state: present
+#     create: yes
+#     path: /etc/docker/daemon.json
+#     line: "{\"insecure-registries\" : [\"{{ hostvars['back_office'].public_hostname }}:5000\"]}"
+# #     //{
+# #   "insecure-registries" : ["myregistrydomain.com:5000"]
+# # # }
 
 - name: Enable Docker CE service at startup
   service:

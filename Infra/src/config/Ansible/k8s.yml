@@ -1,41 +1,54 @@
 ---
-- hosts: worker-1,worker-2,control
-  gather_facts: no
-  tasks:
-    - name: "Reset everything"
-      become: true
-      shell: "kubeadm reset -f"
+# - hosts: worker-1,worker-2,control
+#   gather_facts: no
+#   tasks:
+#     - name: "Reset everything"
+#       become: true
+#       shell: "kubeadm reset -f"
+
 
 - hosts: control
   gather_facts: no
-  tasks:
-    - name: "Create Cluster with kubeadm"
-      become: true
-      shell: "kubeadm init --pod-network-cidr=10.244.0.0/16"
+  roles:
+    - k8s-master
+
+
+
+# - hosts: worker-1,worker-2
+#   gather_facts: no
+#   roles:
+#     - k8s-worker
+
+# - hosts: control
+#   gather_facts: no
+#   tasks:
+#     - name: "Create Cluster with kubeadm"
+#       become: true
+#       shell: "kubeadm init --pod-network-cidr=10.244.0.0/16"
     
-    - name: "Folder maintenance"
-      ansible.builtin.file:
-          path: "/home/{{ ansible_user }}/.kube"
-          state: directory
-          mode: '0755'
+#     - name: "Folder maintenance"
+#       ansible.builtin.file:
+#           path: "/home/{{ ansible_user }}/.kube"
+#           state: directory
+#           mode: '0755'
 
-    - name: "Copy config"
-      become: yes
-      ansible.builtin.copy:
-        src: /etc/kubernetes/admin.conf
-        dest: "/home/{{ ansible_user }}/.kube/config"
-        owner: "{{ ansible_user }}"
-        group: "{{ ansible_user }}"
-        remote_src: yes
+#     - name: "Copy config"
+#       become: yes
+#       ansible.builtin.copy:
+#         src: /etc/kubernetes/admin.conf
+#         dest: "/home/{{ ansible_user }}/.kube/config"
+#         owner: "{{ ansible_user }}"
+#         group: "{{ ansible_user }}"
+#         remote_src: yes
 
-    - name: "Set Up Pod Network"
-      shell: "kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml"
+#     - name: "Set Up Pod Network"
+#       shell: "kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml"
 
-    - name: "Check Status of Cluster"
-      shell: "kubectl cluster-info"
+#     - name: "Check Status of Cluster"
+#       shell: "kubectl cluster-info"
 
-    - name: "Check Status of Cluster"
-      shell: "kubectl get nodes"
+#     - name: "Check Status of Cluster"
+#       shell: "kubectl get nodes"
 
-    - name: "Check Status of Cluster"
-      shell: "kubectl get pods --all-namespaces"
+#     - name: "Check Status of Cluster"
+#       shell: "kubectl get pods --all-namespaces"
