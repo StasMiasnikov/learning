@@ -23,6 +23,8 @@ Every step should be avaluated against
 5. [AWS Solutions architect](https://aws.amazon.com/certification/certified-solutions-architect-professional/)
 
 
+## Manage DNS https://my.noip.com/#!/dynamic-dns
+
 #choco install gradle nodejs python2 -y
 
 
