@@ -6,14 +6,10 @@
 #       become: true
 #       shell: "kubeadm reset -f"
 
-
 - hosts: control
   gather_facts: no
   roles:
     - k8s-master
-
-
-
 # - hosts: worker-1,worker-2
 #   gather_facts: no
 #   roles:
@@ -25,7 +21,7 @@
 #     - name: "Create Cluster with kubeadm"
 #       become: true
 #       shell: "kubeadm init --pod-network-cidr=10.244.0.0/16"
-    
+
 #     - name: "Folder maintenance"
 #       ansible.builtin.file:
 #           path: "/home/{{ ansible_user }}/.kube"

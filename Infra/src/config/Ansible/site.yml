@@ -3,7 +3,7 @@
   become: true
   gather_facts: no
   roles:
-   - dns-client
+    - dns-client
 # - hosts: back_office,control
 #   become: true
 #   roles:
@@ -13,4 +13,4 @@
 #   become: true
 #   roles:
 #    - install_docker
-  
+

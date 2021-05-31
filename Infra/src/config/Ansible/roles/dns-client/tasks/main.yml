@@ -3,7 +3,7 @@
   ansible.builtin.file:
     path: "/home/{{ansible_user}}/dns/"
     state: directory
-    mode: '0755'
+    mode: "0755"
 
 - name: Install the 'Development tools' package group
   yum:
@@ -18,11 +18,10 @@
     remote_src: yes
 
 - name: Install the client
-  command: 
+  command:
     cmd: "{{ item }}"
   args:
     chdir: "/home/{{ansible_user}}/dns/noip-2.1.9-1/"
   with_items:
     - make
     - make install
-  

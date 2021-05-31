@@ -1,7 +1,7 @@
 ---
 - name: Update all packages
   yum:
-    name: '*'
+    name: "*"
     state: latest
     update_only: yes
 
@@ -12,11 +12,11 @@
     update_cache: yes
   vars:
     packages:
-    - yum-utils
-    - device-mapper-persistent-data
-    - lvm2
-    - amazon-linux-extras
-    - git
+      - yum-utils
+      - device-mapper-persistent-data
+      - lvm2
+      - amazon-linux-extras
+      - git
 
 - name: Add extras repository
   shell: yum-config-manager --enable extras
@@ -30,10 +30,10 @@
     group: "docker"
     append: yes
 
-- name: "Template config" 
+- name: "Template config"
   ansible.builtin.template:
-      src: daemon.json
-      dest: /etc/docker/daemon.json
+    src: daemon.json
+    dest: /etc/docker/daemon.json
 
 # - name: "Add temp insecure registry"
 #   lineinfile:
@@ -56,4 +56,3 @@
 
 - name: Verify docker
   shell: bash -ilc "docker --version"
-

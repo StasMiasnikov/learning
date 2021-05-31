@@ -3,14 +3,14 @@
   ansible.builtin.copy:
     src: kubernetes.repo
     dest: /etc/yum.repos.d/kubernetes.repo
-    mode: '0644'
+    mode: "0644"
 
 - name: Install a k8s packages
   yum:
     name: "{{ packages }}"
   vars:
     packages:
-    - kubelet  
+      - kubelet
 
 - name: Enable kubelet service
   ansible.builtin.systemd:
