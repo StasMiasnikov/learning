@@ -3,7 +3,7 @@ stage("Checkout"){
 checkout scm
 
 dir("App/server"){
-def registry_host="ec2-13-58-129-253.us-east-2.compute.amazonaws.com"
+def registry_host="staslearning.ddns.net"
     sh "docker build -t $registry_host:5000/app:latest ."
     sh "docker push $registry_host:5000/app:latest "
 }
