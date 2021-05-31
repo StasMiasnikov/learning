@@ -2,6 +2,7 @@ $BASIC = <<-SCRIPT
 sudo apt-get update -y
 sudo apt-get install -y git net-tools smbclient samba cifs-utils ansible software-properties-common
 mkdir -p  /home/vagrant/shared
+#HOST IP 
 sudo mount -t cifs -o user=stas,password=stasstas100 //172.28.176.1/stas /home/vagrant/shared || dmesg
 sudo chmod -R  777 /home/vagrant/shared
 git config --global user.name "Stas"

@@ -27,26 +27,26 @@ provider "aws" {
 #   public_key = "${tls_private_key.example.public_key_openssh}"
 # }
 
-data "aws_ami" "ubuntu" {
-  most_recent = true
+# data "aws_ami" "ubuntu" {
+#   most_recent = true
 
 
-  filter {
-    name = "name"
-    values = [
-      "ubuntu/images/hvm-ssd/ubuntu-trusty-14.04-amd64-server-*"]
-  }
+#   filter {
+#     name = "name"
+#     values = [
+#       "ubuntu/images/hvm-ssd/ubuntu-trusty-14.04-amd64-server-*"]
+#   }
 
-  filter {
-    name = "virtualization-type"
-    values = [
-      "hvm"]
-  }
+#   filter {
+#     name = "virtualization-type"
+#     values = [
+#       "hvm"]
+#   }
 
-  owners = [
-    "099720109477"]
-  # Canonical
-}
+#   owners = [
+#     "099720109477"]
+#   # Canonical
+# }
 # resource "aws_security_group" "example" {
 #   name = "${var.instance_name}"
 
@@ -71,7 +71,7 @@ data "aws_ami" "ubuntu" {
 # }
 
 resource "aws_instance" "worker-1" {
-  ami = "${data.aws_ami.ubuntu.id}"
+  ami = "${var.ami_id}"
   instance_type = "t2.micro"
  
   tags = {
@@ -92,7 +92,7 @@ resource "aws_instance" "worker-1" {
 }
 
 resource "aws_instance" "worker-2" {
-  ami = "${data.aws_ami.ubuntu.id}"
+  ami = "${var.ami_id}"
   instance_type = "t2.micro"
 
   tags = {
@@ -113,23 +113,33 @@ resource "aws_instance" "worker-2" {
 }
 
 resource "aws_instance" "control" {
-  ami = "${data.aws_ami.ubuntu.id}"
+  ami = "${var.ami_id}"
+  # ami = "${data.aws_ami.ubuntu.id}"
   instance_type = "t2.micro"
   key_name = "back_office_generated"
+  security_groups = [ "launch-wizard-1" ]
   tags = {
+
     Name = "control"
   }
 
-  provisioner "remote-exec" {
-    inline = [
-      "echo The server's IP address is ${self.private_ip}",
-      "whoami"
-
-    ]
+  provisioner "local-exec" {
+    working_dir = "/home/vagrant/shared/GIt/learning/Infra/src/config/Ansible"
+    command  = "ansible-playbook -i inventories/default/main.yml k8s.yml"
+    environment = {
+      control_ec2_ip = "${self.public_ip}"
+      control_ec2_public_hostname = "${self.public_dns}"
+    }
   }
 
-  # provisioner "local-exec" {
-  #   command  = "cd ../Ansible && ansible-playbook -e='control_ec2_ip=${self.public_ip}' -i inventories/default/main.yml k8s.yml "
-  # }
-
 }
+
+
+    #     ansible_host: "{{ control_ec2_ip }}"
+    #     public_hostname: "{{ control_ec2_public_hostname }}"
+    # worker-1:
+    #     ansible_host: "{{ worker-1_ec2_ip }}"
+    #     public_hostname: "{{ worker-1_ec2_public_hostname }}"
+    # worker-2:
+    #     ansible_host: "{{ worker-2_ec2_ip }}"
+    #     public_hostname: "{{ worker-2_ec2_public_hostname }}"
