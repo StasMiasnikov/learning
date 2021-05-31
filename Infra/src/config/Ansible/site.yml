@@ -1,8 +1,13 @@
 ---
-- hosts: back_office,control
+- hosts: back_office
   become: true
+  gather_facts: no
   roles:
-   - aws_linux_docker
+   - dns-client
+# - hosts: back_office,control
+#   become: true
+#   roles:
+#    - aws_linux_docker
 
 # - hosts: localhost
 #   become: true
