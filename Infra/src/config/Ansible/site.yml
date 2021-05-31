@@ -1,5 +1,5 @@
 ---
-- hosts: back_office
+- hosts: control
   become: true
   gather_facts: no
   roles:
