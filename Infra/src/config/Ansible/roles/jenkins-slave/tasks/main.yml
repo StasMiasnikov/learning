@@ -1,0 +1,7 @@
+---
+- name: Install a java packages
+  yum:
+    name: "{{ packages }}"
+  vars:
+    packages:
+      - java-11

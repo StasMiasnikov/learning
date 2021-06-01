@@ -1,0 +1,27 @@
+---
+- name: Create folder if not exists
+  ansible.builtin.file:
+    path: "/home/{{ansible_user}}/dns/"
+    state: directory
+    mode: "0755"
+
+- name: Install the 'Development tools' package group
+  yum:
+    name: "@Development tools"
+    state: present
+
+- name: Download and unarchive tar
+  ansible.builtin.unarchive:
+    src: https://www.noip.com/client/linux/noip-duc-linux.tar.gz
+    dest: "/home/{{ansible_user}}/dns/"
+    owner: "{{ansible_user}}"
+    remote_src: yes
+
+- name: Install the client
+  command:
+    cmd: "{{ item }}"
+  args:
+    chdir: "/home/{{ansible_user}}/dns/noip-2.1.9-1/"
+  with_items:
+    - make
+    - make install

@@ -1,0 +1,3 @@
+{
+  "insecure-registries" : ["{{public_hostname}}:5000"]
+}

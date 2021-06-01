@@ -1,21 +1,30 @@
 default:
   vars:
-    ansible_connection: 'paramiko'
-    ansible_user: 'vagrant'
-    ansible_ssh_pass: 'vagrant'
+    ansible_connection: "paramiko"
+    ansible_user: "vagrant"
+    ansible_ssh_pass: "vagrant"
+    free_dns_name_back_office: "staslearning.ddns.net"
+    free_dns_name_control: "staslearningcontrol.ddns.net"
   hosts:
     localhost:
       ansible_host: "localhost"
-  
+
 aws:
   vars:
     ansible_ssh_user: "ec2-user"
-    ansible_ssh_private_key_file: "/home/vagrant/.ssh/id_rsa"
+    ansible_ssh_private_key_file: "/home/vagrant/.ssh/1/back_office_generated.pem"
     ansible_ssh_common_args: "-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
   hosts:
-  worker-1:
-      ansible_host: ec2-18-217-120-42.us-east-2.compute.amazonaws.com
-  back_office:
-      ansible_host: ec2-3-133-91-226.us-east-2.compute.amazonaws.com
-
-
+    control:
+      ansible_host: "18.188.224.237"
+      # ansible_host: "{{ lookup('env', 'control_ec2_ip') }}"
+      public_hostname: "{{ lookup('env', 'control_ec2_public_hostname') }}"
+    worker-1:
+      ansible_host: "{{ lookup('env', 'worker-1_ec2_ip') }}"
+      public_hostname: "{{ lookup('env', 'worker-1_ec2_public_hostname') }}"
+    worker-2:
+      ansible_host: "{{ lookup('env', 'worker-2_ec2_ip') }}"
+      public_hostname: "{{ free_dns_name_control }}"
+    back_office:
+      ansible_ssh_private_key_file: "/home/vagrant/.ssh/1/back_office.pem"
+      public_hostname: "{{ free_dns_name_back_office }}"

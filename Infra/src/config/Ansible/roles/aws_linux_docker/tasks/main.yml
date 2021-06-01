@@ -1,7 +1,7 @@
 ---
 - name: Update all packages
   yum:
-    name: '*'
+    name: "*"
     state: latest
     update_only: yes
 
@@ -12,10 +12,11 @@
     update_cache: yes
   vars:
     packages:
-    - yum-utils
-    - device-mapper-persistent-data
-    - lvm2
-    - amazon-linux-extras
+      - yum-utils
+      - device-mapper-persistent-data
+      - lvm2
+      - amazon-linux-extras
+      - git
 
 - name: Add extras repository
   shell: yum-config-manager --enable extras
@@ -28,6 +29,21 @@
     name: "{{ ansible_user }}"
     group: "docker"
     append: yes
+
+- name: "Template config"
+  ansible.builtin.template:
+    src: daemon.json
+    dest: /etc/docker/daemon.json
+
+# - name: "Add temp insecure registry"
+#   lineinfile:
+#     state: present
+#     create: yes
+#     path: /etc/docker/daemon.json
+#     line: "{\"insecure-registries\" : [\"{{ hostvars['back_office'].public_hostname }}:5000\"]}"
+# #     //{
+# #   "insecure-registries" : ["myregistrydomain.com:5000"]
+# # # }
 
 - name: Enable Docker CE service at startup
   service:

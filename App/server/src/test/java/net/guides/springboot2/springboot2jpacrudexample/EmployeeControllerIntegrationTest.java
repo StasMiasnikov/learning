@@ -34,7 +34,20 @@ public class EmployeeControllerIntegrationTest {
 
 	@Test
 	public void contextLoads() {
+		System.out.println(getRootUrl());
+	}
 
+	
+	@Test
+	public void testCreateEmployee() {
+		Employee employee = new Employee();
+		employee.setEmailId("admin@gmail.com");
+		employee.setFirstName("admin");
+		employee.setLastName("admin");
+
+		ResponseEntity<Employee> postResponse = restTemplate.postForEntity(getRootUrl() + "/employees", employee, Employee.class);
+		assertNotNull(postResponse);
+		// assertNotNull(postResponse.getBody());
 	}
 
 	@Test
@@ -44,7 +57,8 @@ public class EmployeeControllerIntegrationTest {
 
 		ResponseEntity<String> response = restTemplate.exchange(getRootUrl() + "/employees",
 				HttpMethod.GET, entity, String.class);
-		
+				System.out.println("Response code " + response.getStatusCode());
+				
 		assertNotNull(response.getBody());
 	}
 
@@ -55,17 +69,6 @@ public class EmployeeControllerIntegrationTest {
 		assertNotNull(employee);
 	}
 
-	@Test
-	public void testCreateEmployee() {
-		Employee employee = new Employee();
-		employee.setEmailId("admin@gmail.com");
-		employee.setFirstName("admin");
-		employee.setLastName("admin");
-
-		ResponseEntity<Employee> postResponse = restTemplate.postForEntity(getRootUrl() + "/employees", employee, Employee.class);
-		assertNotNull(postResponse);
-		assertNotNull(postResponse.getBody());
-	}
 
 	@Test
 	public void testUpdateEmployee() {
