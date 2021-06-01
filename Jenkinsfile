@@ -5,11 +5,16 @@ node('back_office') {
 
         dir('App/server') {
             registryHost = 'staslearning.ddns.net'
+            imageTag = "$registryHost:5000/app:latest"
             stage('Build image') {
-            sh "docker build -t $registryHost:5000/app:latest ."
+            sh "docker build -t $imageTag ."
+            }
+            stage('Bake test results') {
+                sh "docker run --rm --entrypoint /bin/sh $imageTag -c 'cat /*.xml' > testResult.xml"
+                junit keepLongStdio: true, testResults: 'testResult.xml'
             }
             stage('Deploy image') {
-            sh "docker push $registryHost:5000/app:latest "
+            sh "docker push $imageTag "
         }
         }
 }

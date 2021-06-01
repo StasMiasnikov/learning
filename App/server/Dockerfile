@@ -12,4 +12,5 @@ RUN gradle --no-daemon bootJar
 
 FROM openjdk:11.0.7-jdk 
 COPY --from=compilation  /gradle/build/libs/gradle-0.0.1-SNAPSHOT.jar app.jar
+COPY --from=compilation  /gradle/build/test-results/test/*.xml /
 ENTRYPOINT ["java","-jar","/app.jar"]
