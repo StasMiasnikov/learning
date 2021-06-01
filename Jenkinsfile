@@ -6,10 +6,10 @@ node('back_office') {
         dir('App/server') {
             registryHost = 'staslearning.ddns.net'
             stage('Build image') {
-            sh "docker build -t $registry_host:5000/app:latest ."
+            sh "docker build -t $registryHost:5000/app:latest ."
             }
             stage('Deploy image') {
-            sh "docker push $registry_host:5000/app:latest "
+            sh "docker push $registryHost:5000/app:latest "
         }
         }
 }
