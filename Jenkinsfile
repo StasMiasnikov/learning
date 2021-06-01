@@ -4,7 +4,7 @@ node('back_office') {
     }
 
         dir('App/server') {
-            def registry_host = 'staslearning.ddns.net'
+            registryHost = 'staslearning.ddns.net'
             stage('Build image') {
             sh "docker build -t $registry_host:5000/app:latest ."
             }
